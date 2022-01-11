@@ -1,0 +1,73 @@
+﻿@using WebApplicationMCVTanisma.Models;
+@{
+    ViewBag.Title = "Listele";
+}
+
+@{
+    int siraNo = 1;
+}
+
+<h2>Tüm Öğrenciler</h2>
+<br />
+
+<table class="table table-hover">
+    <tr>
+        <th>Sıra No</th>
+        <th>Ad</th>
+        <th>Soyad</th>
+        <th>Doğum Tarihi</th>
+        <th>İşlem 1</th>
+        <th>İşlem 2</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(siraNo++)</td>
+
+
+            <td>@item.Ad</td>
+            <td>@item.Soyad</td>
+            <td>@item.DogumTarihi.ToString("dd.MM.yyyy")</td>
+            <td>
+                <a href="Guncelle/@item.Id" class="btn btn-warning">Güncelle</a>
+            </td>
+            <td>
+                @*<a href="Sil/@item.Id" class="btn btn-danger">Sil</a>*@
+                @Html.ActionLink("Sil", "Sil", "Ogrenci", new { id = item.Id }, new { @class = "btn btn-danger" })
+                <input type="button" value="Sil" class="btn btn-default" style="background-color:lightpink;" onclick="ConfirmDelete(@item.Id)" />
+            </td>
+        </tr>
+
+    }
+
+</table>
+<br />
+<a href="/Ogrenci/Ekle" class="btn btn-success">Yeni Öğrenci Ekle</a>
+
+<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        function ConfirmDelete(id) {
+        var x = confirm("Silmek istediğinize emin misiniz?");
+        if (x) {
+            $.ajax({
+                type: "Post",
+                url: "/Ogrenci/Sil2/" + id,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    alert("Silindi");
+                    window.location.href = "/Ogrenci/Listele";
+                },
+                error: function () {
+                    console.log(response);
+                    alert("Beklenmedik bir hata oluştu. Silinemedi!");
+                    window.location.href = "/Ogrenci/Listele";
+                }
+            });
+        }
+    }
+</script>
+
+

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Ekle";
+}
+
+<h2>Yeni Öğrenci Ekleyelim</h2>
+<br />
+<form action="Ekle" method="post">
+    <label>Öğrenci Adı:</label>
+    <input class="form-control" type="text" name="Ad" />
+    <br />
+    <label>Öğrenci Soyadı:</label>
+    <input class="form-control" type="text" name="Soyad" />
+    <br />
+    <label>Öğrenci Doğum Tarihi:</label>
+    <input class="form-control" type="date" name="DogumTarihi" />
+    <br />
+    <input class="btn btn-primary" style="margin-right:5px" type="submit" value="EKLE" />
+    <a href="/Ogrenci/Listele" class="btn btn-default">Listeye Geri Dön</a>
+</form>
